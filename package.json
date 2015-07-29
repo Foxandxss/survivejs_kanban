@@ -1,0 +1,21 @@
+{
+  "name": "kanban",
+  "version": "0.0.1",
+  "description": "A Kanban application from survivejs.com book",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Foxandxss/survivejs_kanban.git"
+  },
+  "keywords": [
+    "kanban"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Foxandxss/survivejs_kanban/issues"
+  },
+  "homepage": "https://github.com/Foxandxss/survivejs_kanban#readme"
+}
