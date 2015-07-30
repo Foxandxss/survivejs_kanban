@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/Foxandxss/survivejs_kanban/issues"
   },
-  "homepage": "https://github.com/Foxandxss/survivejs_kanban#readme"
+  "homepage": "https://github.com/Foxandxss/survivejs_kanban#readme",
+  "devDependencies": {
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.5"
+  }
 }
