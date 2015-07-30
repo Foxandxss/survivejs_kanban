@@ -4,7 +4,8 @@
   "description": "A Kanban application from survivejs.com book",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "start": "webpack-dev-server --config webpack.development.js --devtool eval --progress --colors --hot --inline --history-api-fallback --content-base build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/Foxandxss/survivejs_kanban#readme",
   "devDependencies": {
     "node-libs-browser": "^0.5.2",
-    "webpack": "^1.10.5"
+    "webpack": "^1.10.5",
+    "webpack-dev-server": "^1.10.1"
   }
 }
