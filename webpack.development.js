@@ -9,5 +9,13 @@ module.exports = {
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css']
+      }
+    ]
   }
 };
