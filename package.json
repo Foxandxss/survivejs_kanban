@@ -4,7 +4,6 @@
   "description": "A Kanban application from survivejs.com book",
   "main": "index.js",
   "scripts": {
-    "build": "TARGET=build webpack",
     "start": "TARGET=dev webpack-dev-server --progress --colors --hot --inline --history-api-fallback"
   },
   "repository": {
