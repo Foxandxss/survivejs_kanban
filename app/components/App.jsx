@@ -1,35 +1,36 @@
 import React from 'react';
-import Note from './Note';
+import Notes from './Notes';
 import uuid from 'node-uuid';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      notes: [
+        {
+          id: uuid.v4(),
+          task: 'Learn webpack'
+        },
+        {
+          id: uuid.v4(),
+          task: 'Learn React'
+        },
+        {
+          id: uuid.v4(),
+          task: 'Do Laundry'
+        }
+      ]
+    }
+  }
+
   render() {
-    const notes = [
-      {
-        id: uuid.v4(),
-        task: 'Learn webpack'
-      },
-      {
-        id: uuid.v4(),
-        task: 'Learn React'
-      },
-      {
-        id: uuid.v4(),
-        task: 'Do Laundry'
-      }
-    ];
+    const notes = this.state.notes;
 
     return (
       <div>
-        <ul>{notes.map(this.renderNote)}</ul>
+        <Notes items={notes} />
       </div>
-    );
-  }
-  renderNote(note) {
-    return (
-      <li key={`note${note.id}`}>
-        <Note task={note.task} />
-      </li>
     );
   }
 }
