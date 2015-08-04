@@ -1,6 +1,7 @@
 import React from 'react';
 import Notes from './Notes';
 import uuid from 'node-uuid';
+import findIndex from 'find-index';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -48,6 +49,15 @@ export default class App extends React.Component {
   }
 
   itemEdited(noteId, task) {
-    console.log('item edited', noteId, task);
+    let notes = this.state.notes;
+    const noteIndex = findIndex(notes, (o) => o.id === noteId);
+
+    if (noteIndex < 0) {
+      return console.warn('Failed to find the note', notes, noteId);
+    }
+
+    notes[noteIndex].task = task;
+
+    this.setState({notes});
   }
 }
