@@ -28,7 +28,7 @@ export default class App extends React.Component {
   renderNote(note) {
     return (
       <li key={`note${note.id}`}>
-        <Note value={note.task} />
+        <Note task={note.task} />
       </li>
     );
   }
