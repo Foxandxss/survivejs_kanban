@@ -21,7 +21,9 @@ export default class App extends React.Component {
           task: 'Do Laundry'
         }
       ]
-    }
+    };
+
+    this.addItem = this.addItem.bind(this);
   }
 
   render() {
@@ -36,6 +38,11 @@ export default class App extends React.Component {
   }
 
   addItem() {
-    console.log('add item');
+    this.setState({
+      notes: this.state.notes.concat([{
+        id: uuid.v4(),
+        task: 'New task'
+      }])
+    });
   }
 }
