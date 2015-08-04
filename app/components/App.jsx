@@ -24,6 +24,7 @@ export default class App extends React.Component {
     };
 
     this.addItem = this.addItem.bind(this);
+    this.itemEdited = this.itemEdited.bind(this);
   }
 
   render() {
@@ -32,7 +33,7 @@ export default class App extends React.Component {
     return (
       <div>
         <button onClick={this.addItem}>+</button>
-        <Notes items={notes} />
+        <Notes items={notes} onEdit={this.itemEdited} />
       </div>
     );
   }
@@ -44,5 +45,9 @@ export default class App extends React.Component {
         task: 'New task'
       }])
     });
+  }
+
+  itemEdited(noteId, task) {
+    console.log('item edited', noteId, task);
   }
 }
