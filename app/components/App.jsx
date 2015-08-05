@@ -50,7 +50,7 @@ export default class App extends React.Component {
 
   itemEdited(noteId, task) {
     let notes = this.state.notes;
-    const noteIndex = findIndex(notes, (o) => o.id === noteId);
+    const noteIndex = notes.findIndex((note) => note.id === noteId);
 
     if (noteIndex < 0) {
       return console.warn('Failed to find the note', notes, noteId);
