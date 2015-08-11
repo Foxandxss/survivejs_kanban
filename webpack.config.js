@@ -1,8 +1,9 @@
+var webpack = require('webpack');
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var merge = require('webpack-merge');
 
-var TARGET = process.env.TARGET;
+var TARGET = process.env.npm_lifecycle_event;
 var ROOT_PATH = path.resolve(__dirname);
 
 var common = {
@@ -30,7 +31,7 @@ var common = {
   ]
 };
 
-if (TARGET === 'dev') {
+if (TARGET === 'start') {
   module.exports = merge(common, {
     devtool: 'eval',
     module: {
@@ -41,6 +42,16 @@ if (TARGET === 'dev') {
           include: path.resolve(ROOT_PATH, 'app')
         }
       ]
-    }
+    },
+    devServer: {
+      colors: true,
+      historyApiFallback: true,
+      hot: true,
+      inline: true,
+      progress: true
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
+    ]
   });
 }
