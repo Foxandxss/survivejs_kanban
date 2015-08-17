@@ -1,7 +1,6 @@
 import React from 'react';
 import Notes from './Notes.jsx';
 import uuid from 'node-uuid';
-import findIndex from 'find-index';
 
 export default class App extends React.Component {
   constructor(props) {

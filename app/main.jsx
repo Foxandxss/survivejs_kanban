@@ -1,6 +1,6 @@
 import './main.css';
 
-import 'core-js/fn/array/find-index';
+import 'array.prototype.findindex';
 
 import React from 'react';
 import App from './components/App.jsx';
