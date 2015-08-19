@@ -1,30 +1,26 @@
 import React from 'react';
 import Notes from './Notes.jsx';
-import uuid from 'node-uuid';
+import NoteActions from '../actions/NoteActions';
+import NoteStore from '../stores/NoteStore';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      notes: [
-        {
-          id: uuid.v4(),
-          task: 'Learn webpack'
-        },
-        {
-          id: uuid.v4(),
-          task: 'Learn React'
-        },
-        {
-          id: uuid.v4(),
-          task: 'Do Laundry'
-        }
-      ]
-    };
+    this.storeChanged = this.storeChanged.bind(this);
+    this.state = NoteStore.getState();
+  }
 
-    this.addItem = this.addItem.bind(this);
-    this.itemEdited = this.itemEdited.bind(this);
+  componentDidMount() {
+    NoteStore.listen(this.storeChanged);
+  }
+
+  componentWillUnmount() {
+    NoteStore.unlisten(this.storeChanged);
+  }
+
+  storeChanged(state) {
+    this.setState(state);
   }
 
   render() {
@@ -32,35 +28,21 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <button onClick={this.addItem}>+</button>
-        <Notes items={notes} onEdit={this.itemEdited} />
+        <button onClick={this.addNote}>+</button>
+        <Notes items={notes} onEdit={this.editNote} onDelete={this.deleteNote} />
       </div>
     );
   }
 
-  addItem() {
-    this.setState({
-      notes: this.state.notes.concat([{
-        id: uuid.v4(),
-        task: 'New task'
-      }])
-    });
+  addNote() {
+    NoteActions.create({task: 'New task'});
   }
 
-  itemEdited(noteId, task) {
-    let notes = this.state.notes;
-    const noteIndex = notes.findIndex((note) => note.id === noteId);
+  editNote(id, task) {
+    NoteActions.update({id, task});
+  }
 
-    if (noteIndex < 0) {
-      return console.warn('Failed to find the note', notes, noteId);
-    }
-
-    if (task) {
-      notes[noteIndex].task = task;
-    } else {
-      notes = notes.slice(0, noteIndex).concat(notes.slice(noteIndex + 1));
-    }
-
-    this.setState({notes});
+  deleteNote(id) {
+    NoteActions.delete(id);
   }
 }
