@@ -20,7 +20,7 @@ export default class Editable extends React.Component {
     const editing = this.state.editing;
 
     return (
-      <div>
+      <div {...props}>
         {editing ? this.renderEdit() : this.renderValue()}
       </div>
     );
