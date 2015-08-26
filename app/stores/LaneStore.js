@@ -19,6 +19,30 @@ class LaneStore {
       lanes: lanes.concat(lane)
     });
   }
+  update({id, name}) {
+    const lanes = this.lanes;
+    const targetId = this.findLane(id);
+
+    if (targetId < 0) {
+      return;
+    }
+
+    lanes[targetId].name = name;
+
+    this.setState({lanes});
+  }
+  delete(id) {
+    const lanes = this.lanes;
+    const targetId = this.findLane(id);
+
+    if (targetId < 0) {
+      return;
+    }
+
+    this.setState({
+      lanes: lanes.slice(0, targetId).concat(lanes.slice(targetId + 1))
+    });
+  }
   attachToLane({laneId, noteId}) {
     if (!noteId) {
       this.waitFor(NoteStore);

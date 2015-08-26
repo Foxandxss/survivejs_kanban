@@ -4,6 +4,7 @@ import Notes from './Notes.jsx';
 import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
 import LaneActions from '../actions/LaneActions';
+import Editable from './Editable.jsx';
 
 export default class Lane extends React.Component {
   render() {
@@ -12,7 +13,7 @@ export default class Lane extends React.Component {
     return (
       <div {...props}>
         <div className='lane-header'>
-          <div className='lane-name'>{name}</div>
+          <Editable className='lane-name' value={name} onEdit={this.editName.bind(null, id)} />
           <div className='lane-add-note'>
             <button onClick={this.addNote.bind(null, id)}>+</button>
           </div>
@@ -32,6 +33,13 @@ export default class Lane extends React.Component {
   addNote(laneId) {
     NoteActions.create({task: 'New Task'});
     LaneActions.attachToLane({laneId});
+  }
+  editName(id, name) {
+    if (name) {
+      LaneActions.update({id, name});
+    } else {
+      LaneActions.delete(id);
+    }
   }
   editNote(noteId, task) {
     NoteActions.update({id: noteId, task});
