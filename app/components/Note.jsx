@@ -4,17 +4,21 @@ import ItemTypes from '../libs/ItemTypes';
 
 const noteSource = {
   beginDrag(props) {
-    console.log('begin dragging note', props);
-
-    return {};
+    return {
+      id: props.id
+    };
   }
 };
 
 const noteTarget = {
   hover(targetProps, monitor) {
+    const targetId = targetProps.id;
     const sourceProps = monitor.getItem();
+    const sourceId = sourceProps.id;
 
-    console.log('dragging note', sourceProps, targetProps);
+    if (sourceId !== targetId) {
+      targetProps.onMove({sourceId, targetId});
+    }
   }
 };
 
