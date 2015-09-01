@@ -97,6 +97,9 @@ class LaneStore {
 
     return laneIndex;
   }
+  move({sourceId, targetId}) {
+    console.log('source', sourceId, 'target', targetId);
+  }
 }
 
 export default alt.createStore(LaneStore, 'LaneStore');
