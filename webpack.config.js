@@ -35,7 +35,7 @@ if (TARGET === 'start') {
       loaders: [
         {
           test: /\.jsx?$/,
-          loaders: ['react-hot', 'babel?stage=1'],
+          loaders: ['react-hot', 'babel'],
           include: path.resolve(ROOT_PATH, 'app')
         }
       ]
@@ -49,6 +49,33 @@ if (TARGET === 'start') {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
+    ]
+  });
+}
+
+if (TARGET === 'build') {
+  module.exports = merge(common, {
+    devtool: 'source-map',
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['babel'],
+          include: path.resolve(ROOT_PATH, 'app')
+        }
+      ]
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': JSON.stringify('production')
+        }
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
     ]
   });
 }
