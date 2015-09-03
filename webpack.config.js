@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var merge = require('webpack-merge');
+var pkg = require('./package.json');
 
 var TARGET = process.env.npm_lifecycle_event;
 var ROOT_PATH = path.resolve(__dirname);
@@ -55,6 +56,14 @@ if (TARGET === 'start') {
 
 if (TARGET === 'build') {
   module.exports = merge(common, {
+    entry: {
+      app: path.resolve(ROOT_PATH, 'app/main.jsx'),
+      vendor: Object.keys(pkg.dependencies)
+    },
+    output: {
+      path: path.resolve(ROOT_PATH, 'build'),
+      filename: 'app.[chunkhash].js'
+    },
     devtool: 'source-map',
     module: {
       loaders: [
@@ -66,6 +75,10 @@ if (TARGET === 'build') {
       ]
     },
     plugins: [
+      new webpack.optimize.CommonsChunkPlugin(
+        'vendor',
+        'vendor.[chunkhash].js'
+      ),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify('production')
