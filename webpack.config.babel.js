@@ -1,3 +1,5 @@
+var fs = require('fs');
+var React = require('react');
 var webpack = require('webpack');
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
@@ -5,6 +7,8 @@ var merge = require('webpack-merge');
 var pkg = require('./package.json');
 var Clean = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var App = require('./app/components/App.jsx');
 
 var TARGET = process.env.npm_lifecycle_event;
 var ROOT_PATH = path.resolve(__dirname);
@@ -14,12 +18,7 @@ var common = {
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js'
-  },
-  plugins: [
-    new HtmlwebpackPlugin({
-      title: 'Kanban app'
-    })
-  ]
+  }
 };
 
 if (TARGET === 'start' || !TARGET) {
@@ -29,8 +28,7 @@ if (TARGET === 'start' || !TARGET) {
       loaders: [
         {
           test: /\.css$/,
-          loaders: ['style', 'css'],
-          include: path.resolve(ROOT_PATH, 'app')
+          loaders: ['style', 'css']
         },
         {
           test: /\.jsx?$/,
@@ -40,14 +38,16 @@ if (TARGET === 'start' || !TARGET) {
       ]
     },
     devServer: {
-      colors: true,
       historyApiFallback: true,
       hot: true,
       inline: true,
       progress: true
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new HtmlwebpackPlugin({
+        title: 'Kanban app'
+      })
     ]
   });
 }
@@ -78,8 +78,8 @@ if (TARGET === 'build') {
       ]
     },
     plugins: [
-      new Clean(['build']),
       new ExtractTextPlugin('styles.[chunkhash].css'),
+      new Clean(['build']),
       new webpack.optimize.CommonsChunkPlugin(
         'vendor',
         '[name].[chunkhash].js'
@@ -93,7 +93,25 @@ if (TARGET === 'build') {
         compress: {
           warnings: false
         }
+      }),
+      new HtmlwebpackPlugin({
+        title: APP_TITLE,
+        templateContent: renderTemplate(
+          fs.readFileSync(path.join(__dirname, 'templates/index.tpl'), 'utf8'),
+          {
+            app: React.renderToString(<App />)
+          })
       })
     ]
   });
+}
+
+function renderTemplate(template, replacements) {
+  return function() {
+    return template.replace(/%(\w*)%/g, function(match) {
+      var key = match.slice(1, -1);
+
+      return replacements[key] ? replacements[key] : match;
+    });
+  };
 }
