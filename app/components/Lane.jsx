@@ -6,7 +6,7 @@ import NoteStore from '../stores/NoteStore';
 import LaneActions from '../actions/LaneActions';
 import Editable from './Editable.jsx';
 import {DropTarget} from 'react-dnd';
-import ItemTypes from '../libs/ItemTypes';
+import ItemTypes from '../constants/ItemTypes';
 
 const noteTarget = {
   hover(targetProps, monitor) {
