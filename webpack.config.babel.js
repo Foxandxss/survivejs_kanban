@@ -12,12 +12,16 @@ var App = require('./app/components/App.jsx');
 
 var TARGET = process.env.npm_lifecycle_event;
 var ROOT_PATH = path.resolve(__dirname);
+var APP_TITLE = 'Kanban app';
 
 var common = {
   entry: path.resolve(ROOT_PATH, 'app'),
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   }
 };
 
@@ -46,7 +50,7 @@ if (TARGET === 'start' || !TARGET) {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new HtmlwebpackPlugin({
-        title: 'Kanban app'
+        title: APP_TITLE
       })
     ]
   });
