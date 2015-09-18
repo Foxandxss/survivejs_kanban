@@ -32,9 +32,9 @@ export default class Lane extends React.Component {
 
     return connectDropTarget(
       <div {...props}>
-        <div className='lane-header'>
-          <Editable className='lane-name' value={name} onEdit={this.editName.bind(null, id)} />
-          <div className='lane-add-note'>
+        <div className="lane-header">
+          <Editable className="lane-name" value={name} onEdit={this.editName.bind(null, id)} />
+          <div className="lane-add-note">
             <button onClick={this.addNote.bind(null, id)}>+</button>
           </div>
         </div>
