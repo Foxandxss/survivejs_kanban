@@ -22,6 +22,15 @@ var common = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
+  },
+  module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['eslint'],
+        include: path.resolve(ROOT_PATH, 'app')
+      }
+    ]
   }
 };
 
