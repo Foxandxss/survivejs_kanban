@@ -29,6 +29,11 @@ var common = {
         test: /\.jsx?$/,
         loaders: ['eslint'],
         include: path.resolve(ROOT_PATH, 'app')
+      },
+      {
+        test: /\.css$/,
+        loaders: ['csslint'],
+        include: path.resolve(ROOT_PATH, 'app')
       }
     ]
   }
